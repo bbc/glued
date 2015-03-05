@@ -35,8 +35,10 @@ class Grabber
 
   def create_download_file
     # TODO: Track how much has already been downloaded and append from that point
-    fail Unstuck, "Aborting as the download target file '#{@uri}' already exists" if File.exist? @uri
-
+    # fail Unstuck, "Aborting as the download target file '#{@uri}' already exists" if File.exist? @uri
+    if File.exist? @uri
+    File.delete(@uri)
+  end
     @out = File.new(@uri, 'ab') if @out.nil?
 
     # TODO: Test first fragment for audio and video write header accordingly
@@ -53,7 +55,12 @@ class Grabber
   end
 
   def download_all
-    @urls.each { |url| download url }
+    @urls.each do |url|
+      puts "\n#{url}\n"
+      
+       download url 
+     end
+  
   end
 
   def download(url)
@@ -73,7 +80,12 @@ class Grabber
     f4f.boxes.each do |box|
       if box.type == 'mdat'
         reader.pos = box.content_start
-        @out.write(reader.read(box.content_size))
+        data = reader.read(box.content_size)
+        @out.write(data)
+        
+        # current_fragment = File.new("#{Time.now.to_f}.f4v", 'ab')
+        # current_fragment.write(FLV.header)
+        # current_fragment.write(data)
       end
     end
 
