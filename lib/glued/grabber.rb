@@ -66,7 +66,7 @@ class Grabber
     reader = F4VIO.new(dl.body)
     f4f = F4F.new(reader)
 
-    debug_stuff(dl.body)
+    # debug_stuff(dl.body)
 
     fail 'Fragment did not verify' unless f4f.ok?
 
@@ -83,7 +83,14 @@ class Grabber
   def fetch_and_report(url)
     start_time = Time.now
 
-    dl = Curl::Easy.perform(url)
+
+    c = Curl::Easy.new(url)
+    c.ssl_verify_peer = false
+    c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
+    c.perform
+    dl = c
+
+    # dl = Curl::Easy.perform(url)
 
     report(dl.body.length, Time.now - start_time)
 

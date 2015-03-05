@@ -3,7 +3,7 @@
 # Deserialises the manifest
 #
 class F4M
-  NAMESPACE = 'http://ns.adobe.com/f4m/1.0'
+  NAMESPACE = 'http://ns.adobe.com/f4m/4.0'
 
   attr_reader :duration,
               :bootstrap_info,
