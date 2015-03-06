@@ -103,7 +103,7 @@ class Grabber
 
     # dl = Curl::Easy.perform(url)
 
-    report(dl.body.length, Time.now - start_time)
+    # report(dl.body.length, Time.now - start_time)
 
     dl
   end
