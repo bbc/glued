@@ -16,8 +16,6 @@ class Glue
     c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
     c.perform
     @xml = c.body
-    # @manifest = F4M.new(url, xml, nil)
-    # @bootstrap = Bootstrap.new(@manifest.bootstrap_info)
   end
   
   
@@ -33,10 +31,18 @@ class Glue
     rates.reject { |e| e.nil? }
   end
   
-  def grab(media)
+  def get_total_segments(media)
     @manifest = F4M.new(@url, @xml, media)
     @bootstrap = Bootstrap.new(@manifest.bootstrap_info)
-    Grabber.new(@manifest, @bootstrap)
+    @bootstrap.fragments
+  end
+  
+  def grab(media, destination)
+    # add destination
+    @manifest = F4M.new(@url, @xml, media)
+    @bootstrap = Bootstrap.new(@manifest.bootstrap_info)
+    io = File.new(destination, 'ab')
+    Grabber.new(@manifest, @bootstrap, io)
   end
   
 end

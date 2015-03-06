@@ -12,7 +12,7 @@ class Grabber
   SANE_FRAGMENT_MAX = 10_000
   SANE_FRAGMENT_MIN = 1
 
-  def initialize(manifest, bootstrap, io = nil, do_download = true)
+  def initialize(manifest, bootstrap, io, do_download = true)
     # As we've hardcoded 1 into the @url below
     fail Unstuck, 'Only one segment can be handled' if bootstrap.segments != 1
     fail Unstuck, 'Not enough fragments' if bootstrap.fragments < SANE_FRAGMENT_MIN
@@ -37,8 +37,8 @@ class Grabber
     # TODO: Track how much has already been downloaded and append from that point
     # fail Unstuck, "Aborting as the download target file '#{@uri}' already exists" if File.exist? @uri
     if File.exist? @uri
-    File.delete(@uri)
-  end
+      File.delete(@uri)
+    end
     @out = File.new(@uri, 'ab') if @out.nil?
 
     # TODO: Test first fragment for audio and video write header accordingly
@@ -58,8 +58,8 @@ class Grabber
     @urls.each do |url|
       puts "\n#{url}\n"
       
-       download url 
-     end
+      download url 
+    end
   
   end
 
