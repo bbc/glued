@@ -56,7 +56,6 @@ class Grabber
 
   def download_all
     @urls.each do |url|
-      puts "\n#{url}\n"
       
       download url 
     end

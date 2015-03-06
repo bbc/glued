@@ -37,7 +37,7 @@ class Glue
     @bootstrap.fragments
   end
   
-  def grab(media, destination)
+  def get_all_media(media, destination)
     # add destination
     @manifest = F4M.new(@url, @xml, media)
     @bootstrap = Bootstrap.new(@manifest.bootstrap_info)
