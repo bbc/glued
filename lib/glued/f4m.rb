@@ -3,7 +3,7 @@
 # Deserialises the manifest
 #
 class F4M
-  NAMESPACE = 'http://ns.adobe.com/f4m/4.0'
+  NAMESPACE = 'http://ns.adobe.com/f4m/'
   @xml
   attr_reader :duration,
   :bootstrap_info,
@@ -15,7 +15,7 @@ class F4M
     @xml = Nokogiri::XML(data)
 
     namespace = @xml.root.namespace.href rescue 'not found'
-    fail "Invalid manifest namespace. It was #{namespace} but should have been #{NAMESPACE}" unless namespace == NAMESPACE
+    fail "Invalid manifest namespace. It was #{namespace} but should have been #{NAMESPACE}" unless namespace.include?(NAMESPACE)
 
     @xml.remove_namespaces!
 
