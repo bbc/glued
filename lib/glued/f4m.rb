@@ -19,8 +19,8 @@ class F4M
 
     @xml.remove_namespaces!
 
-    stream_type = @xml.xpath('//streamType').first.text rescue 'unknown'
-    fail 'Only recorded streams are supported.' unless stream_type == 'recorded'
+    # stream_type = @xml.xpath('//streamType').first.text rescue 'unknown'
+    # fail 'Only recorded streams are supported.' unless stream_type == 'recorded'
 
     @duration = @xml.xpath('//duration').first.text.to_i
 
