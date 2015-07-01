@@ -36,6 +36,7 @@ class Bootstrap
   private
 
   def scan
+    
     # Scan for 'boxes' in the stream see spec 1.3 F4V box format
     until @reader.eof?
       box = make_box_header
@@ -80,8 +81,8 @@ class Bootstrap
     b.profile                = plu >> 6
     b.live                   = (plu & 0x20) ? 1 : 0
     b.update                 = (plu & 0x01) ? 1 : 0
-
     b.time_scale             = @reader.int32
+        
     b.current_media_time     = @reader.int64
     b.smpte_timecode_offset  = @reader.int64
     b.movie_identifier       = @reader.string
