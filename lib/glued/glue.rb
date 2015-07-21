@@ -12,11 +12,15 @@ class Glue
     fail "Invalid manifest url '#{url}' (it should end with .f4m)" unless url.to_s =~ /\.f4m$/ # Only by convention
 
     # xml = Curl::Easy.perform(url).body
-    c = Curl::Easy.new(url)
-    c.ssl_verify_peer = false
-    c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
-    c.perform
-    @xml = c.body
+    
+    @xml = HTTParty.get(url, :verify => false, :headers => {"X-AUTH-MD-RADIX0" => HEADER_AUTH})
+    
+    
+    # c = Curl::Easy.new(url)
+    # c.ssl_verify_peer = false
+    # c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
+    # c.perform
+    # @xml = c.body
   end
   
   def get_segment_duration(media)

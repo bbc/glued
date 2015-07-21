@@ -15,7 +15,7 @@ spec = Gem::Specification.new do |s|
   s.require_paths << 'lib'
   s.bindir = 'bin'
   s.executables << 'glued'
-  s.add_dependency('curb')
+  s.add_dependency('httparty')
   s.add_dependency('nokogiri')
   s.add_development_dependency('observr')
   s.add_development_dependency('rspec')

@@ -3,7 +3,7 @@
 # Gem versioning and identification constants
 #
 module Glued
-  VERSION = '0.1.4'
+  VERSION = '0.1.5'
   NAME = 'glued'
   USER_AGENT = "#{NAME}-#{VERSION}"
 end

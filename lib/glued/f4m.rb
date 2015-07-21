@@ -32,12 +32,14 @@ class F4M
       boostrap_file  = @xml.xpath("//bootstrapInfo[@id=\"#{bootStrapId}\"]").attribute("url").value
       bootstrap_url = "#{url[0..url.rindex(/\//)]}#{boostrap_file}"
 
+      b64_bootstrap_info = HTTParty.get(bootstrap_url, :verify => false, :headers => {"X-AUTH-MD-RADIX0" => HEADER_AUTH})
+      
 
-      c = Curl::Easy.new(bootstrap_url)
-      c.ssl_verify_peer = false
-      c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
-      c.perform
-      b64_bootstrap_info = c.body
+      # c = Curl::Easy.new(bootstrap_url)
+      # c.ssl_verify_peer = false
+      # c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
+      # c.perform
+      # b64_bootstrap_info = c.body
       
       @bootstrap_info = b64_bootstrap_info
       

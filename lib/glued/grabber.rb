@@ -67,9 +67,10 @@ class Grabber
 
     dl = fetch_and_report(url)
 
-    fail "Invalid content type '#{dl.content_type}' for fragment #{file_name}." unless dl.content_type == 'video/f4f'
+    # fail "Invalid content type '#{dl.content_type}' for fragment #{file_name}." unless dl.content_type == 'video/f4f'
 
-    reader = F4VIO.new(dl.body)
+    # reader = F4VIO.new(dl.body)
+    reader = F4VIO.new(dl)
     f4f = F4F.new(reader)
 
     # debug_stuff(dl.body)
@@ -95,11 +96,14 @@ class Grabber
     start_time = Time.now
 
 
-    c = Curl::Easy.new(url)
-    c.ssl_verify_peer = false
-    c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
-    c.perform
-    dl = c
+    dl = HTTParty.get(url, :verify => false, :headers => {"X-AUTH-MD-RADIX0" => HEADER_AUTH})
+
+
+    # c = Curl::Easy.new(url)
+    # c.ssl_verify_peer = false
+    # c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
+    # c.perform
+    # dl = c
 
     # dl = Curl::Easy.perform(url)
 
