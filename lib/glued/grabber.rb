@@ -89,7 +89,7 @@ class Grabber
 
   def fetch_and_report(url)
     start_time = Time.now
-    dl = HTTParty.get(url, :verify => false, :headers => {HEADER_AUTH_KEY => HEADER_AUTH_VALUE}})
+    dl = HTTParty.get(url, :verify => false, :headers => {HEADER_AUTH_KEY => HEADER_AUTH_VALUE})
     dl
   end
 
