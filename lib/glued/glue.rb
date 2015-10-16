@@ -10,17 +10,7 @@ class Glue
     @url = url
     @bootstrap = nil
     fail "Invalid manifest url '#{url}' (it should end with .f4m)" unless url.to_s =~ /\.f4m$/ # Only by convention
-
-    # xml = Curl::Easy.perform(url).body
-    
-    @xml = HTTParty.get(url, :verify => false, :headers => {"X-AUTH-MD-RADIX0" => HEADER_AUTH})
-    
-    
-    # c = Curl::Easy.new(url)
-    # c.ssl_verify_peer = false
-    # c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
-    # c.perform
-    # @xml = c.body
+    @xml = HTTParty.get(url, :verify => false, :headers => {HEADER_AUTH_KEY => HEADER_AUTH_VALUE})
   end
   
   def get_segment_duration(media)
