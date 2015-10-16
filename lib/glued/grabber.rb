@@ -69,7 +69,6 @@ class Grabber
 
     # fail "Invalid content type '#{dl.content_type}' for fragment #{file_name}." unless dl.content_type == 'video/f4f'
 
-    # reader = F4VIO.new(dl.body)
     reader = F4VIO.new(dl)
     f4f = F4F.new(reader)
 
@@ -82,10 +81,6 @@ class Grabber
         reader.pos = box.content_start
         data = reader.read(box.content_size)
         @out.write(data)
-        
-        # current_fragment = File.new("#{Time.now.to_f}.f4v", 'ab')
-        # current_fragment.write(FLV.header)
-        # current_fragment.write(data)
       end
     end
 
@@ -94,21 +89,7 @@ class Grabber
 
   def fetch_and_report(url)
     start_time = Time.now
-
-
-    dl = HTTParty.get(url, :verify => false, :headers => {"X-AUTH-MD-RADIX0" => HEADER_AUTH})
-
-
-    # c = Curl::Easy.new(url)
-    # c.ssl_verify_peer = false
-    # c.headers["X-AUTH-MD-RADIX0"] = HEADER_AUTH
-    # c.perform
-    # dl = c
-
-    # dl = Curl::Easy.perform(url)
-
-    # report(dl.body.length, Time.now - start_time)
-
+    dl = HTTParty.get(url, :verify => false, :headers => {HEADER_AUTH_KEY => HEADER_AUTH_VALUE}})
     dl
   end
 
